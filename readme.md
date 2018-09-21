@@ -60,3 +60,19 @@ http://docs.celeryproject.org/en/latest/getting-started/next-steps.html#starting
 
 http://docs.celeryproject.org/en/latest/getting-started/next-steps.html#in-the-background
 
+# Run
+Truy cập: `celery-note/src/project`
+
+Chạy
+```
+celery -A proj worker -l info
+```
+
+Test:
+```
+res1 = sleep_test.delay(10)
+
+res1.state (trạng thái)
+
+res1.get() (lấy kết quả)
+```
