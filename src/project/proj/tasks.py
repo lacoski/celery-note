@@ -4,6 +4,8 @@ from celery.task import Task
 from celery.registry import tasks
 from celery.task import task
 import time
+import os
+
 
 
 @app.task
@@ -38,3 +40,14 @@ def sleep_test(time_count):
     return True
 
 tasks.register(Hello)
+
+@app.task
+def log_error(request, exc, traceback):
+    with open(os.path.join('/var/errors', request.id), 'a') as fh:
+        print('--\n\n{0} {1} {2}'.format(
+            task_id, exc, traceback), file=fh)
+
+@app.task
+def on_chord_error(request, exc, traceback):
+    print('Task {0!r} raised error: {1!r}'.format(request.id, exc))
+    
